@@ -1,6 +1,7 @@
 using Fusion;
 using Fusion.Sockets;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -13,6 +14,10 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
     [SerializeField]
     GameObject setupPrefab;
+    [SerializeField]
+    GameObject networkGameManagerPrefab;
+    [SerializeField]
+    GameObject gameManagerPrefab;
 
     public void Awake()
     {
@@ -21,80 +26,76 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnConnectedToServer(NetworkRunner runner)
     {
-        
+
     }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
     {
-        
+
     }
 
     public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
     {
-        
+
     }
 
     public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
     {
-        
+
     }
 
     public void OnDisconnectedFromServer(NetworkRunner runner)
     {
-        
+
     }
 
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
     {
-        
+
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        
+
     }
 
     public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
     {
-        
+
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         Debug.Log($"Player Joined. Player ID: {player.PlayerId}");
-
-        if (runner.ActivePlayers.Count() == 1)
+        if (runner.ActivePlayers.Count() == 2)
         {
-            var setupPrefabObject = Instantiate(setupPrefab);
-            var sceneSetupHelper = setupPrefabObject.GetComponent<SceneSetupHelper>();
-            sceneSetupHelper.Setup(runner);
-            //SceneManager.LoadScene("GameScene");
+            StartCoroutine(SetupGame(runner, player));
         }
     }
 
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
-        //End Game
+        //Finish Game
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
     {
-        
+
     }
 
     public void OnSceneLoadDone(NetworkRunner runner)
     {
-        
+
     }
 
     public void OnSceneLoadStart(NetworkRunner runner)
     {
-        
+
     }
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-        
+
     }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
@@ -104,7 +105,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message)
     {
-        
+
     }
 
     void Start()
@@ -122,7 +123,32 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
             SessionName = "TestRoom",
             Scene = SceneManager.GetSceneByName("GameScene").buildIndex,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
-            PlayerCount = 2,   
+            PlayerCount = 2,
         });
+    }
+
+    public IEnumerator SetupGame(NetworkRunner runner, PlayerRef player)
+    {
+        /*
+            var setupPrefabObject = Instantiate(setupPrefab);
+            var sceneSetupHelper = setupPrefabObject.GetComponent<SceneSetupHelper>();
+            sceneSetupHelper.Setup(runner);
+        */
+
+        if (runner.IsServer)
+        {
+            var networkGameManager = runner.Spawn(networkGameManagerPrefab);
+        }
+
+        yield return new WaitForSeconds(3);
+
+        var gameManagerObject = Instantiate(gameManagerPrefab);
+        var gameManager = gameManagerObject.GetComponent<GameManager>();
+
+        if (runner.IsServer)
+        {
+            gameManager.SetupGame();
+        }
+        //SceneManager.LoadScene("GameScene");
     }
 }

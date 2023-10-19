@@ -1,7 +1,11 @@
 using System;
+using UnityEngine;
+
 
 public class GameStateController : ScopedSingleton<GameStateController>
 {
+    public StateMachineTest NetworkStateMachine;
+
     public IGameState currentState;
     public IUIState currentUIState;
 
@@ -14,7 +18,13 @@ public class GameStateController : ScopedSingleton<GameStateController>
         currentState?.UpdateState();
         currentUIState?.UpdateState();
     }
-    public void ChangeState(IGameState newState)
+
+    public void ChangeState(GameState newState)
+    {
+        NetworkStateMachine.SetState(newState);
+    }
+
+    public void ChangeLocalState(IGameState newState)
     {
         currentState?.OnExit();
         currentState = newState;

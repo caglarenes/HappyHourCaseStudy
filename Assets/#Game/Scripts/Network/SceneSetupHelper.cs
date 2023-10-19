@@ -9,9 +9,9 @@ public class SceneSetupHelper : MonoBehaviour
     public void Setup(NetworkRunner runner)
     {
         _networkRunner = runner;
-    }
-    void Start()
-    {
-        _networkRunner.Spawn(GameStateMachinePrefab);
+        if (runner.IsServer)
+        {
+            _networkRunner.Spawn(GameStateMachinePrefab);
+        }
     }
 }

@@ -3,33 +3,56 @@ using UnityEngine;
 
 public class StateMachineTest : NetworkBehaviour
 {
-    private GameStateMachine _sm;
+    private GameNetworkStateMachine _sm;
 
     private void Awake()
     {
-        _sm = GetComponent<GameStateMachine>();
-
+        _sm = GetComponent<GameNetworkStateMachine>();
     }
 
     public override void Spawned()
     {
-        _sm[GameState.Start].OnEnter = (m, state) => { Debug.Log($"Entered Start State from {state}"); };
-        _sm[GameState.Run].OnEnter = (m, state) => { Debug.Log($"Entered Run State from {state}"); };
-        _sm[GameState.Dead].OnEnter = (m, state) => { Debug.Log($"Entered Dead State from {state}"); };
-        _sm[GameState.Start].OnExit = (m, state) => { Debug.Log($"Left Start State for {state}"); };
-        _sm[GameState.Run].OnExit = (m, state) => { Debug.Log($"Left Run State for {state}"); };
-        _sm[GameState.Dead].OnExit = (m, state) => { Debug.Log($"Left Dead State for {state}"); };
+        _sm[GameState.Preparation].OnEnter = (m, state) => 
+        {
+            Debug.Log($"Entered Preparation State from {state}");
+            GameStateController.Instance.ChangeLocalState(new PreparationState(Runner)); 
+        };
+
+        _sm[GameState.Preparation].OnExit = (m, state) => { Debug.Log($"Left Preparation State from {state}"); };
+
+        _sm[GameState.Collect].OnEnter = (m, state) => 
+        { 
+            Debug.Log($"Entered Collect State from {state}");
+            GameStateController.Instance.ChangeLocalState(new CollectState(Runner));
+        };
+
+        _sm[GameState.Collect].OnExit = (m, state) => { Debug.Log($"Left Collect State for {state}"); };
+
+        _sm[GameState.CreateWood].OnEnter = (m, state) => 
+        { 
+            Debug.Log($"Entered Collect State from {state}");
+            GameStateController.Instance.ChangeLocalState(new CreateWoodState(Runner));
+        };
+
+        _sm[GameState.CreateWood].OnExit = (m, state) => { Debug.Log($"Left Collect State for {state}"); };
+
+        _sm[GameState.End].OnEnter = (m, state) => 
+        {
+            Debug.Log($"Entered End State from {state}");
+            GameStateController.Instance.ChangeLocalState(new EndState(Runner));
+        };
+
+        _sm[GameState.End].OnExit = (m, state) => { Debug.Log($"Left End State for {state}"); };
     }
 
-    public void OnSetState(int st)
+    public void SetState(GameState st)
     {
-        _sm.State = (GameState)st;
+        _sm.State = st;
     }
 
     public override void FixedUpdateNetwork()
     {
-        Debug.Log("ASD");
-        OnSetState(2);
+        
     }
 
 }

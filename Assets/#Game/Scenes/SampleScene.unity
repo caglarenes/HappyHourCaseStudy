@@ -1309,6 +1309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _runner: {fileID: 1764673915}
   setupPrefab: {fileID: 6922787553974924196, guid: 2279df08a011dc747a9006739339e371, type: 3}
+  networkGameManagerPrefab: {fileID: 8982270361783386470, guid: 94467a2f93398d84b940a5d883a6a7fe, type: 3}
+  gameManagerPrefab: {fileID: 8381805411478522484, guid: 5586c15a823b6bc45a07246ab83ce7a3, type: 3}
 --- !u!114 &1764673915
 MonoBehaviour:
   m_ObjectHideFlags: 0
