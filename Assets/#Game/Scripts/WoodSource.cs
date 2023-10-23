@@ -10,6 +10,8 @@ public class WoodSource : NetworkBehaviour
     [Networked(OnChanged = nameof(OnSourceCountChanged))]
     public ushort SourceCount { get; set; } = 150;
 
+    public WoodPlacementPoint WoodPlacementPoint;
+
     public TMP_Text SourceText;
 
     public void Update()
@@ -36,6 +38,22 @@ public class WoodSource : NetworkBehaviour
     {
         SourceCount -= (ushort)collectAmount;
         UpdateUIText();
+
+        if(SourceCount <= 0)
+        {
+            DeleteWoodSource();
+        }
+    }
+
+    public void DeleteWoodSource()
+    {
+        if(!Runner.IsServer)
+        {
+            return;
+        }
+
+        WoodPlacementPoint.HaveWoodSource = false;
+        Runner.Despawn(Object);
     }
 
 }

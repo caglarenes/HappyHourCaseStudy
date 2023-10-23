@@ -67,6 +67,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
         Debug.Log($"Player Joined. Player ID: {player.PlayerId}");
+
         if (runner.ActivePlayers.Count() == 2)
         {
             StartCoroutine(SetupGame(runner, player));
@@ -121,7 +122,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             GameMode = mode,
             SessionName = "TestRoom",
-            Scene = SceneManager.GetSceneByName("GameScene").buildIndex,
+            Scene = 1,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 2,
         });
@@ -142,13 +143,12 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
         yield return new WaitForSeconds(3);
 
-        var gameManagerObject = Instantiate(gameManagerPrefab);
-        var gameManager = gameManagerObject.GetComponent<GameManager>();
 
         if (runner.IsServer)
         {
-            gameManager.SetupGame();
+            GameManager.Instance.SetupGame();
         }
+
         //SceneManager.LoadScene("GameScene");
     }
 }

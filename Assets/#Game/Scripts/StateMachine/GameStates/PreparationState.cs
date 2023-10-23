@@ -42,7 +42,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < 3; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.minionPrefab);
+            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
             characterScript.ChangeCharacterTeam(Team.TeamA);
         }
@@ -51,7 +51,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < 3; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.minionPrefab);
+            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
             characterScript.ChangeCharacterTeam(Team.TeamB);
         }

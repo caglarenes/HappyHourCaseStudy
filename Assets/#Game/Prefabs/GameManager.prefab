@@ -44,5 +44,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebbb792b6d342e4e97fc4a1b85514ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minionPrefab: {fileID: 7964935753408257286, guid: f138aa981e7583546b5b9c4989ef2e07, type: 3}
-  woodSourcePrefab: {fileID: 1473521476265806366, guid: 845401c31730052429e3f7779e137643, type: 3}
+  MinionPrefab: {fileID: 7964935753408257286, guid: f138aa981e7583546b5b9c4989ef2e07, type: 3}
+  WoodSourcePrefab: {fileID: 1473521476265806366, guid: 845401c31730052429e3f7779e137643, type: 3}
+  WoodPlacementPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
