@@ -14,16 +14,20 @@ public class CreateWoodState : IGameState
 
     public void OnEnter()
     {
-        
+        for (int i = 0; i < 3; i++)
+        {
+            NetworkRunner.Spawn(GameManager.Instance.woodSourcePrefab);
+        }
+
     }
 
     public void OnExit()
     {
-        
+
     }
 
     public void UpdateState()
     {
-        
+
     }
 }
