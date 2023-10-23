@@ -2,17 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : ScopedSingleton<GameManager>
+public class MapManager : ScopedSingleton<MapManager>
 {
-    public GameObject MinionPrefab;
-    public GameObject WoodSourcePrefab;
-
     public List<WoodPlacementPoint> WoodPlacementPoints = new();
-
-    public void SetupGame()
-    {
-        GameStateController.Instance.ChangeState(GameState.Preparation);
-    }
 
     public bool TryGetRandomEmptyWoodPlacementPoint(ref WoodPlacementPoint woodPlacementPoint)
     {
@@ -29,5 +21,4 @@ public class GameManager : ScopedSingleton<GameManager>
 
         return true;
     }
-
 }

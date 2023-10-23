@@ -19,14 +19,14 @@ public class CreateWoodState : IGameState
         for (int i = 0; i < 3; i++)
         {
             WoodPlacementPoint _woodPlacementPoint = null;
-            if (!GameManager.Instance.TryGetRandomEmptyWoodPlacementPoint(ref _woodPlacementPoint))
+            if (!MapManager.Instance.TryGetRandomEmptyWoodPlacementPoint(ref _woodPlacementPoint))
             {
                 break;
             }
 
             _woodPlacementPoint.HaveWoodSource = true;
 
-            var createdWoodSource = NetworkRunner.Spawn(GameManager.Instance.WoodSourcePrefab, _woodPlacementPoint.transform.position, _woodPlacementPoint.transform.rotation);
+            var createdWoodSource = NetworkRunner.Spawn(PrefabManager.Instance.WoodSourcePrefab, _woodPlacementPoint.transform.position, _woodPlacementPoint.transform.rotation);
             var woodSource = createdWoodSource.gameObject.GetComponent<WoodSource>();
             woodSource.WoodPlacementPoint = _woodPlacementPoint;
         }

@@ -19,7 +19,7 @@ public class PreparationState : IGameState
     {
         if(NetworkRunner.IsServer)
         {
-            PreparationCoroutine = GameManager.Instance.StartCoroutine(SetupCharacters());
+            PreparationCoroutine = CoroutineHolder.Instance.StartCoroutine(SetupCharacters());
         }
     }
 
@@ -27,7 +27,7 @@ public class PreparationState : IGameState
     {
         if(PreparationCoroutine != null)
         {
-            GameManager.Instance.StopCoroutine(SetupCharacters());
+            CoroutineHolder.Instance.StopCoroutine(SetupCharacters());
         }
     }
 
@@ -42,7 +42,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < 3; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.MinionPrefab);
+            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
             characterScript.ChangeCharacterTeam(Team.TeamA);
         }
@@ -51,7 +51,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < 3; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(GameManager.Instance.MinionPrefab);
+            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
             characterScript.ChangeCharacterTeam(Team.TeamB);
         }

@@ -146,7 +146,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (runner.IsServer)
         {
-            GameManager.Instance.SetupGame();
+           runner.Spawn(gameManagerPrefab);
         }
 
         //SceneManager.LoadScene("GameScene");
