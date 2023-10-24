@@ -2,6 +2,7 @@ using Fusion;
 using UnityEngine;
 using Pathfinding;
 using UnityEngine.Events;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class Character : NetworkBehaviour
 {
@@ -52,7 +53,7 @@ public class Character : NetworkBehaviour
 
     #endregion
 
-    public void MovePosition(Vector3 movePoint)
+    public void MoveToPosition(Vector3 movePoint)
     {
         if (Runner.IsServer)
         {
@@ -64,6 +65,11 @@ public class Character : NetworkBehaviour
         {
             RPC_RequestMove(movePoint);
         }
+    }
+
+    public void StartPathfind(Vector3 startPosition, Vector3 endPosition)
+    {
+       Seeker.StartPath(startPosition, endPosition);
     }
 
     public void CollectWoodSource(WoodSource woodSource)
@@ -96,7 +102,7 @@ public class Character : NetworkBehaviour
     public void RPC_RequestMove(Vector3 movePoint)
     {
         Debug.Log("RPC_RequestMove");
-        MovePosition(movePoint);
+        MoveToPosition(movePoint);
     }
 
 }

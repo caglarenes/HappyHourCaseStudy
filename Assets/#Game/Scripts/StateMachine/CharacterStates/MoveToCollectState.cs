@@ -53,7 +53,12 @@ public class MoveToCollectState : ICharacterState
 
     public void GoPosition()
     {
-        owner.Seeker.StartPath(owner.transform.position, owner.WoodSource.transform.position);
+        if (!owner.Object.HasStateAuthority)
+        {
+            return;
+        }
+
+        owner.StartPathfind(owner.transform.position, owner.WoodSource.transform.position);
     }
 
     public bool CheckDistance()

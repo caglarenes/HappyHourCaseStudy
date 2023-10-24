@@ -42,7 +42,7 @@ public class CharacterSelectedUIState : IUIState
 
             if (SelectionManager.Instance.TryGetSelectedMapPoint(out var selectedPoint))
             {
-                SelectedCharacter.MovePosition(selectedPoint);
+                SelectedCharacter.MoveToPosition(selectedPoint);
                 return;
             };
         }

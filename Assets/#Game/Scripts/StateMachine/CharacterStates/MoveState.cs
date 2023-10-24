@@ -9,6 +9,11 @@ public class MoveState : ICharacterState
 
     public void OnEnter()
     {
+        if(!owner.Object.HasStateAuthority)
+        {
+            return;
+        }
+
         owner.OnMovePointChanged.AddListener(GoPosition);
         owner.SetMovability(true);
         GoPosition();
@@ -29,6 +34,11 @@ public class MoveState : ICharacterState
 
     public void GoPosition()
     {
-        owner.Seeker.StartPath(owner.transform.position, owner.MovePoint);
+        if (!owner.Object.HasStateAuthority)
+        {
+            return;
+        }
+
+        owner.StartPathfind(owner.transform.position, owner.MovePoint);
     }
 }
