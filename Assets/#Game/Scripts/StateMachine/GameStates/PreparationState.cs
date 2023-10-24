@@ -51,23 +51,27 @@ public class PreparationState : IGameState
 
     public IEnumerator SetupCharacters()
     {
+        GameManager gameManager = GameManager.Instance;
+        MapManager mapManager = MapManager.Instance;
+        PrefabManager prefabManager = PrefabManager.Instance;
+
         // Setup Player A minions
 
-        for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
+        for (int i = 0; i < gameManager.Settings.CharacterCountPerPlayer; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab, MapManager.Instance.GetRandomPointFromMap());
+            var tempMinion = NetworkRunner.Spawn(prefabManager.MinionPrefab, mapManager.GetRandomPointFromMap(), Quaternion.Euler(mapManager.GetRandomMapFaceRotation()));
             var characterScript = tempMinion.GetComponent<Character>();
-            GameManager.Instance.player1Characters.Add(characterScript);
+            gameManager.player1Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamA);
         }
 
         // Setup Player B minions
 
-        for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
+        for (int i = 0; i < gameManager.Settings.CharacterCountPerPlayer; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab, MapManager.Instance.GetRandomPointFromMap());
+            var tempMinion = NetworkRunner.Spawn(prefabManager.MinionPrefab, mapManager.GetRandomPointFromMap(), Quaternion.Euler(mapManager.GetRandomMapFaceRotation()));
             var characterScript = tempMinion.GetComponent<Character>();
-            GameManager.Instance.player2Characters.Add(characterScript);
+            gameManager.player2Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamB);
         }
 

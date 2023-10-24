@@ -1166,51 +1166,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3941052016729052975, guid: 315a93a1a00438f41934578ca31e4c22, type: 3}
   m_PrefabInstance: {fileID: 207908179}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &219173573
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 219173574}
-  - component: {fileID: 219173575}
-  m_Layer: 0
-  m_Name: WoodPlacePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &219173574
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219173573}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8, y: 0, z: 68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1836959015}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &219173575
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219173573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 710ee98703e941c4a9f3767e8fde4ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HaveWoodSource: 0
 --- !u!1001 &235511969
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3226,7 +3181,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1836959015}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &871786854
 MonoBehaviour:
@@ -4952,51 +4907,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3941052016729052975, guid: 315a93a1a00438f41934578ca31e4c22, type: 3}
   m_PrefabInstance: {fileID: 1504130443}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1524884535
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1524884536}
-  - component: {fileID: 1524884537}
-  m_Layer: 0
-  m_Name: WoodPlacePoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1524884536
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524884535}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 46, y: 0, z: 14}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1836959015}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1524884537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524884535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 710ee98703e941c4a9f3767e8fde4ef1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HaveWoodSource: 0
 --- !u!1001 &1527229849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5612,9 +5522,7 @@ MonoBehaviour:
   - {fileID: 1050663227}
   - {fileID: 1042430674}
   - {fileID: 2074459089}
-  - {fileID: 219173575}
   - {fileID: 871786854}
-  - {fileID: 1524884537}
 --- !u!1 &1659929911
 GameObject:
   m_ObjectHideFlags: 0
@@ -6471,9 +6379,7 @@ Transform:
   - {fileID: 1050663226}
   - {fileID: 1042430673}
   - {fileID: 2074459088}
-  - {fileID: 219173574}
   - {fileID: 871786853}
-  - {fileID: 1524884536}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

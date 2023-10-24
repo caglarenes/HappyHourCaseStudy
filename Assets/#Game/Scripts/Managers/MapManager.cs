@@ -28,12 +28,27 @@ public class MapManager : ScopedSingleton<MapManager>
     {
         var pointRes = ((RecastGraph)Pathfinder.graphs[0]).GetNearest(GetRandomPoint());
 
-        return pointRes.constClampedPosition;
+        return new Vector3(pointRes.constClampedPosition.x, GameManager.Instance.Settings.CharacterSpawnHeight, pointRes.constClampedPosition.z);
     }
 
     public Vector3 GetRandomPoint()
     {
-        return new Vector3(Random.Range(-20,20), 1.02f, Random.Range(-20,20));
+        return new Vector3(Random.Range(-20, 20), 1.02f, Random.Range(-20, 20));
+    }
+
+    public Vector3 GetRandomMapFaceRotation()
+    {
+        var randomNumber = Random.Range(0, 2);
+
+        switch (randomNumber)
+        {
+            case 0:
+                return new Vector3(0, 180, 0);
+            case 1:
+                return new Vector3(0, 270, 0);
+            default:
+                return new Vector3(0, 180, 0);
+        }
     }
 
 }

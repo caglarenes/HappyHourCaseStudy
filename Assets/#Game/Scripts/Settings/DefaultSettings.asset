@@ -15,6 +15,7 @@ MonoBehaviour:
   CharacterCountPerPlayer: 3
   EndGameScore: 350
   WoodReachDestination: 5.5
+  CharacterSpawnHeight: 1.02
   CreateWoodMin: 2
   CreateWoodCount: 3
   MaxWoodCount: 3
