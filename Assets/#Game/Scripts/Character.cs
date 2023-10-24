@@ -1,6 +1,7 @@
 using Fusion;
 using UnityEngine;
 using Pathfinding;
+using UnityEngine.Events;
 
 public class Character : NetworkBehaviour
 {
@@ -17,6 +18,12 @@ public class Character : NetworkBehaviour
     public MeshRenderer CharacterMeshRenderer;
 
     public Vector3 MovePoint;
+    [HideInInspector]
+    public UnityEvent OnMovePointChanged = new();
+
+    public WoodSource WoodSource;
+    [HideInInspector]
+    public UnityEvent OnWoodSourceChanged = new();
 
     public override void Spawned()
     {
@@ -26,7 +33,20 @@ public class Character : NetworkBehaviour
     public void MovePosition(Vector3 movePoint)
     {
         MovePoint = movePoint;
+        OnMovePointChanged.Invoke();
         CharacterStateController.ChangeState(CharacterState.Walk);
+    }
+
+    public void CollectWoodSource(WoodSource woodSource)
+    {
+        WoodSource = woodSource;
+        OnWoodSourceChanged.Invoke();
+        CharacterStateController.ChangeState(CharacterState.MoveToCollect);
+    }
+
+    public void SetMovability(bool canMove)
+    {
+        AIPath.canMove = canMove;
     }
 
     public static void OnCharacterTeamChanged(Changed<Character> changed)

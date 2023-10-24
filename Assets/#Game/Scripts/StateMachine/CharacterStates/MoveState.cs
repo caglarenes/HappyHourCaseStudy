@@ -1,6 +1,5 @@
 public class MoveState : ICharacterState
 {
-
     Character owner;
 
     public MoveState(Character owner)
@@ -10,7 +9,9 @@ public class MoveState : ICharacterState
 
     public void OnEnter()
     {
-        owner.Seeker.StartPath(owner.transform.position, owner.MovePoint);
+        owner.OnMovePointChanged.AddListener(GoPosition);
+        owner.SetMovability(true);
+        GoPosition();
     }
 
     public void UpdateState()
@@ -23,6 +24,11 @@ public class MoveState : ICharacterState
 
     public void OnExit()
     {
+        owner.OnMovePointChanged.RemoveListener(GoPosition);
+    }
 
+    public void GoPosition()
+    {
+        owner.Seeker.StartPath(owner.transform.position, owner.MovePoint);
     }
 }

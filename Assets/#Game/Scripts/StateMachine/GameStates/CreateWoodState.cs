@@ -20,7 +20,7 @@ public class CreateWoodState : IGameState
     {
         if (NetworkRunner.IsServer)
         {
-            CoroutineHolder.Instance.StartCoroutine(CreateWoods());
+            CreateWoodCoroutine = CoroutineHolder.Instance.StartCoroutine(CreateWoods());
         }
     }
 

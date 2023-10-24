@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,20 @@ public class InGameUIManager : ScopedSingleton<InGameUIManager>
     public CharacterSelectedView CharacterSelectedView;
     public EndGameView EndGameView;
 
+    public InfoView InfoView;
+
+
+    public void Setup()
+    {
+        InfoView.Setup();
+        GameManager.Instance.OnEndGame.AddListener(ShowEndGameScreen);
+    }
+
+    public void ShowEndGameScreen()
+    {
+        GameStateController.Instance.ChangeState(GameState.End);
+    }
+
     public void ReturnMainMenu() 
     {
         SceneManager.LoadScene(0);
@@ -23,5 +38,10 @@ public class InGameUIManager : ScopedSingleton<InGameUIManager>
         {
             item.ChangeVisibility(false);
         }
+    }
+
+    public void Deselect()
+    {
+        GameStateController.Instance.ChangeUIState(new SelectCharacterUIState());
     }
 }

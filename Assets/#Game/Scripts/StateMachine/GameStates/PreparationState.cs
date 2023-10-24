@@ -34,6 +34,8 @@ public class PreparationState : IGameState
             CoroutineHolder.Instance.StopCoroutine(SetupCharacters());
         }
 
+        PhotonManager.Instance.OnPlayersReady.RemoveListener(PlayersReady);
+
         GameStateController.Instance.ChangeUIState(new SelectCharacterUIState());
     }
 
@@ -55,6 +57,7 @@ public class PreparationState : IGameState
         {
             var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
+            GameManager.Instance.player1Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamA);
         }
 
@@ -64,6 +67,7 @@ public class PreparationState : IGameState
         {
             var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
+            GameManager.Instance.player2Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamB);
         }
 

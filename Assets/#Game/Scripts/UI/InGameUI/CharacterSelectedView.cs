@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class CharacterSelectedView : IView
 {
-    
+    public void Deselect()
+    {
+        InGameUIManager.Instance.Deselect();
+    }
 }

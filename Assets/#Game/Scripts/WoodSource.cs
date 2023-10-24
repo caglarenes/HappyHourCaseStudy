@@ -12,6 +12,7 @@ public class WoodSource : NetworkBehaviour
 
     public WoodPlacementPoint WoodPlacementPoint;
 
+    public Canvas Canvas;
     public TMP_Text SourceText;
 
 
@@ -30,10 +31,13 @@ public class WoodSource : NetworkBehaviour
         changed.Behaviour.UpdateUIText();
     }
 
-    public void CollectWood(int collectAmount)
+    public void CollectWood(int collectAmount, Team playerTeam)
     {
         SourceCount -= (ushort)collectAmount;
+
+        GameManager.Instance.AddPoint(collectAmount, playerTeam);
         UpdateUIText();
+
 
         if (SourceCount <= 0)
         {

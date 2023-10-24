@@ -26,11 +26,24 @@ public class CharacterSelectedUIState : IUIState
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Character Order Pos 1");
+
+            if (SelectionManager.Instance.TryGetSelectedWoodSource(out var selectedWoodSource))
+            {
+
+                SelectedCharacter.CollectWoodSource(selectedWoodSource);
+                return;
+            };
+
+            if (SelectionManager.Instance.TryGetSelectedCharacter(out var selectedCharacter))
+            {
+                SelectedCharacter = selectedCharacter;
+                return;
+            };
+
             if (SelectionManager.Instance.TryGetSelectedMapPoint(out var selectedPoint))
             {
-                Debug.Log("Character Order Pos 2");
                 SelectedCharacter.MovePosition(selectedPoint);
+                return;
             };
         }
     }

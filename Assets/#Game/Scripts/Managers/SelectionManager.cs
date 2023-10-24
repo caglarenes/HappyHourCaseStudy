@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class SelectionManager : ScopedSingleton<SelectionManager>
 {
     public LayerMask MapLayer;
     public LayerMask CharacterLayer;
+    public LayerMask WoodSourceLayer;
 
     public bool TryGetSelectedMapPoint(out Vector3 selectedMapPoint)
     {
         selectedMapPoint = Vector3.zero;
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return false;
+        }
 
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (!Physics.Raycast(ray, out var hitInfo, 1000, MapLayer))
         {
@@ -22,13 +28,38 @@ public class SelectionManager : ScopedSingleton<SelectionManager>
         return true;
     }
 
+    public bool TryGetSelectedWoodSource(out WoodSource selectedWoodSource)
+    {
+        selectedWoodSource = null;
+
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return false;
+        }
+
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (!Physics.Raycast(ray, out var hitInfo, 1000, WoodSourceLayer))
+        {
+            return false;
+        }
+
+        selectedWoodSource = hitInfo.collider.gameObject.GetComponentInParent<WoodSource>();
+
+        return true;
+    }
+
 
     public bool TryGetSelectedCharacter(out Character selectedCharacter)
     {
         selectedCharacter = null;
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return false;
+        }
 
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (!Physics.Raycast(ray, out var hitInfo, 1000, CharacterLayer))
         {

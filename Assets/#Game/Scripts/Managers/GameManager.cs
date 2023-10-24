@@ -6,6 +6,10 @@ using UnityEngine.Events;
 
 public class GameManager : NetworkBehaviour
 {
+    public List<Character> player1Characters = new(3);
+    public List<Character> player2Characters = new(3);
+
+
     [Networked(OnChanged = nameof(OnPhotonPlayer1ScoreChanged))]
     public int Player1Score { get; set; }
     public UnityEvent OnPlayer1ScoreChanged;
@@ -14,6 +18,11 @@ public class GameManager : NetworkBehaviour
     [Networked(OnChanged = nameof(OnPhotonPlayer2ScoreChanged))]
     public int Player2Score { get; set; }
     public UnityEvent OnPlayer2ScoreChanged;
+
+    public Team PlayerTeam;
+
+    public Team WinnerTeam;
+    public UnityEvent OnEndGame;
 
     public List<WoodSource> WoodSources = new();
 
@@ -29,6 +38,8 @@ public class GameManager : NetworkBehaviour
         {
             Debug.LogError("Game Manager already exist.");
         }
+
+        FindObjectOfType<InGameUIManager>().Setup();
     }
 
     public override void Spawned()
@@ -37,28 +48,74 @@ public class GameManager : NetworkBehaviour
         {
             SetupGame();
         }
+
+        SetupTeam();
     }
 
     public void CheckEndGame()
     {
-        if(Player1Score >= 50)
+        if (Player1Score >= 350)
         {
-            EndGame(true);
+            EndGame(Team.TeamA);
         }
-        else if (Player2Score >= 50) 
+        else if (Player2Score >= 350)
         {
-            EndGame(false);
+            EndGame(Team.TeamB);
         }
     }
 
-    public void EndGame(bool isPlayer1)
+    public void AddPoint(int point, Team team)
     {
+        switch (team)
+        {
+            case Team.TeamA:
+                Player1Score += point;
+                break;
+            case Team.TeamB:
+                Player2Score += point;
+                break;
+        }
 
+        if (Runner.IsServer)
+        {
+            CheckEndGame();
+        }
+    }
+
+    public void EndGame(Team winnerTeam)
+    {
+        WinnerTeam = winnerTeam;
+        OnEndGame.Invoke();     
+    }
+
+    public void StopAllCharacters()
+    {
+        foreach (var characters in player1Characters)
+        {
+            characters.CharacterStateController.ChangeState(CharacterState.Idle);
+        }
+
+        foreach (var characters in player2Characters)
+        {
+            characters.CharacterStateController.ChangeState(CharacterState.Idle);
+        }
     }
 
     public void SetupGame()
     {
         GameStateController.Instance.ChangeState(GameState.Preparation);
+    }
+
+    private void SetupTeam()
+    {
+        if (Runner.IsServer)
+        {
+            PlayerTeam = Team.TeamA;
+        }
+        else
+        {
+            PlayerTeam = Team.TeamB;
+        }
     }
 
     public static void OnPhotonPlayer1ScoreChanged(Changed<GameManager> changed)

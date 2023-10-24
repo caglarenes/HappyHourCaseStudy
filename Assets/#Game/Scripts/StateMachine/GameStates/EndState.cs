@@ -15,16 +15,20 @@ public class EndState : IGameState
 
     public void OnEnter()
     {
-        
+        if (NetworkRunner.IsServer)
+        {
+            GameManager.Instance.StopAllCharacters();
+            GameStateController.Instance.ChangeUIState(new EndGameUIState(GameManager.Instance.WinnerTeam));
+        }
     }
 
     public void OnExit()
     {
-        
+
     }
 
     public void UpdateState()
     {
-        
+
     }
 }
