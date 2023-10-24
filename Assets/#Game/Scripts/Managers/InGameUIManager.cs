@@ -30,6 +30,7 @@ public class InGameUIManager : ScopedSingleton<InGameUIManager>
 
     public void ReturnMainMenu()
     {
+        PhotonManager.Instance.CloseConnection();
         SceneManager.LoadScene(0);
     }
 

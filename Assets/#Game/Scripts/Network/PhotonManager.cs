@@ -3,12 +3,16 @@ using Fusion.Sockets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 {
+    public int PlayerLevel = 1;
+
     [SerializeField]
     NetworkRunner _runner;
 
@@ -32,7 +36,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
         }
         else
         {
-            Debug.LogError("Photon Manager already exist.");
+            Destroy(this);
         }
 
         DontDestroyOnLoad(gameObject);
@@ -92,6 +96,12 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
     public void OnPlayerLeft(NetworkRunner runner, PlayerRef player)
     {
         //Finish Game
+        CloseConnection();
+
+        if (SceneManager.GetActiveScene().buildIndex != 0)
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data)
@@ -124,23 +134,29 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
     }
 
-    void Start()
-    {
-        StartGame(GameMode.AutoHostOrClient);
-    }
-
-    async void StartGame(GameMode mode)
+    public async void StartGame()
     {
         _runner.ProvideInput = true;
 
+        var customProps = new Dictionary<string, SessionProperty>
+        {
+            ["level"] = PlayerLevel
+        };
+
         await _runner.StartGame(new StartGameArgs()
         {
-            GameMode = mode,
-            SessionName = "TestRoom",
+            GameMode = GameMode.AutoHostOrClient,
+            SessionProperties = customProps,
             Scene = 1,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>(),
             PlayerCount = 2,
+
         });
+    }
+
+    public void CloseConnection()
+    {
+        _runner.Shutdown();
     }
 
     public IEnumerator SetupGame(NetworkRunner runner, PlayerRef player)
