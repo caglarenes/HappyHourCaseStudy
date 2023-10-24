@@ -26,6 +26,6 @@ public class InfoView : MonoBehaviour
 
     string FormatScoreText(int score)
     {
-        return $"{score} / 350";
+        return $"{score} / {gameManager.Settings.EndGameScore}";
     }
 }
