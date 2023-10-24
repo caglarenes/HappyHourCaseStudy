@@ -10,7 +10,7 @@ public class IdleState : ICharacterState
 
     public void OnEnter()
     {
-
+        owner.SetMovability(false);
     }
 
     public void UpdateState()

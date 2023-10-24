@@ -63,16 +63,31 @@ public class MoveToCollectState : ICharacterState
 
     public bool CheckDistance()
     {
-        if (owner.WoodSource == null || owner.WoodSource.transform == null)
+        try
         {
+            if (owner.WoodSource == null)
+            {
+                owner.CharacterStateController.ChangeState(CharacterState.Idle);
+            }
+
+            if (Vector3.Distance(owner.WoodSource.transform.position, owner.transform.position) < GameManager.Instance.Settings.WoodReachDestination)
+            {
+                return true;
+            }
+
+            return false;
+
+        }
+        catch (MissingReferenceException)
+        {
+            Debug.Log("aaa");
             owner.CharacterStateController.ChangeState(CharacterState.Idle);
+            return false;
         }
-
-        if (Vector3.Distance(owner.WoodSource.transform.position, owner.transform.position) < GameManager.Instance.Settings.WoodReachDestination)
+        catch (System.Exception e)
         {
-            return true;
+            Debug.LogError(e);
+            return false;
         }
-
-        return false;
     }
 }
