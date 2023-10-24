@@ -25,28 +25,10 @@ public class Character : NetworkBehaviour
     [HideInInspector]
     public UnityEvent OnWoodSourceChanged = new();
 
+    #region Setup
     public override void Spawned()
     {
         ChangeCharacterTeam(CharacterTeam);
-    }
-
-    public void MovePosition(Vector3 movePoint)
-    {
-        MovePoint = movePoint;
-        OnMovePointChanged.Invoke();
-        CharacterStateController.ChangeState(CharacterState.Walk);
-    }
-
-    public void CollectWoodSource(WoodSource woodSource)
-    {
-        WoodSource = woodSource;
-        OnWoodSourceChanged.Invoke();
-        CharacterStateController.ChangeState(CharacterState.MoveToCollect);
-    }
-
-    public void SetMovability(bool canMove)
-    {
-        AIPath.canMove = canMove;
     }
 
     public static void OnCharacterTeamChanged(Changed<Character> changed)
@@ -66,6 +48,27 @@ public class Character : NetworkBehaviour
             CharacterTeam = characterTeam;
             CharacterMeshRenderer.material.color = Color.blue;
         }
+    }
+
+    #endregion
+
+    public void MovePosition(Vector3 movePoint)
+    {
+        MovePoint = movePoint;
+        OnMovePointChanged.Invoke();
+        CharacterStateController.ChangeState(CharacterState.Walk);
+    }
+
+    public void CollectWoodSource(WoodSource woodSource)
+    {
+        WoodSource = woodSource;
+        OnWoodSourceChanged.Invoke();
+        CharacterStateController.ChangeState(CharacterState.MoveToCollect);
+    }
+
+    public void SetMovability(bool canMove)
+    {
+        AIPath.canMove = canMove;
     }
 
 }

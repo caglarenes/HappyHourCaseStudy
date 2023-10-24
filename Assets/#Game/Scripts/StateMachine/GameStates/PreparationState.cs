@@ -55,7 +55,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
+            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab, MapManager.Instance.GetRandomPointFromMap());
             var characterScript = tempMinion.GetComponent<Character>();
             GameManager.Instance.player1Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamA);
@@ -65,7 +65,7 @@ public class PreparationState : IGameState
 
         for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
         {
-            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
+            var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab, MapManager.Instance.GetRandomPointFromMap());
             var characterScript = tempMinion.GetComponent<Character>();
             GameManager.Instance.player2Characters.Add(characterScript);
             characterScript.ChangeCharacterTeam(Team.TeamB);

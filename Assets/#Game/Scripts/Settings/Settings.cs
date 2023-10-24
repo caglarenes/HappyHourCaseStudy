@@ -10,4 +10,8 @@ public class Settings : ScriptableObject
     public int EndGameScore;
 
     public float WoodReachDestination;
+
+    public int CreateWoodMin;
+    public int CreateWoodCount;
+    public int MaxWoodCount;
 }

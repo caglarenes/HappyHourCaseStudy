@@ -37,11 +37,17 @@ public class CreateWoodState : IGameState
 
     }
 
-    public IEnumerator CreateWoods(int woodCount = 3)
+    public IEnumerator CreateWoods()
     {
-        for (int i = 0; i < woodCount; i++)
+        for (int i = 0; i < GameManager.Instance.Settings.CreateWoodCount; i++)
         {
+            if (GameManager.Instance.WoodSources.Count == GameManager.Instance.Settings.MaxWoodCount)
+            {
+                break;
+            }
+
             WoodPlacementPoint _woodPlacementPoint = null;
+
             if (!MapManager.Instance.TryGetRandomEmptyWoodPlacementPoint(ref _woodPlacementPoint))
             {
                 break;

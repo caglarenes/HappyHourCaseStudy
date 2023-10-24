@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterCountPerPlayer: 3
   EndGameScore: 350
-  WoodReachDestination: 4.5
+  WoodReachDestination: 5.5
+  CreateWoodMin: 2
+  CreateWoodCount: 3
+  MaxWoodCount: 3
