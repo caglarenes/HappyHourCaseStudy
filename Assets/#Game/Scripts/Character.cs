@@ -54,21 +54,49 @@ public class Character : NetworkBehaviour
 
     public void MovePosition(Vector3 movePoint)
     {
-        MovePoint = movePoint;
-        OnMovePointChanged.Invoke();
-        CharacterStateController.ChangeState(CharacterState.Walk);
+        if (Runner.IsServer)
+        {
+            MovePoint = movePoint;
+            OnMovePointChanged.Invoke();
+            CharacterStateController.ChangeState(CharacterState.Walk);
+        }
+        else
+        {
+            RPC_RequestMove(movePoint);
+        }
     }
 
     public void CollectWoodSource(WoodSource woodSource)
     {
-        WoodSource = woodSource;
-        OnWoodSourceChanged.Invoke();
-        CharacterStateController.ChangeState(CharacterState.MoveToCollect);
+        if (Runner.IsServer)
+        {
+            WoodSource = woodSource;
+            OnWoodSourceChanged.Invoke();
+            CharacterStateController.ChangeState(CharacterState.MoveToCollect);
+        }
+        else
+        {
+            RPC_RequestWoodSourceCollect(woodSource.Object.Id);
+        }
     }
 
     public void SetMovability(bool canMove)
     {
         AIPath.canMove = canMove;
+    }
+
+    [Rpc(sources: RpcSources.Proxies, targets: RpcTargets.StateAuthority)]
+    public void RPC_RequestWoodSourceCollect(NetworkId id)
+    {
+        Debug.Log("RPC_RequestWoodSourceCollect");
+        CollectWoodSource(Runner.FindObject(id).GetComponent<WoodSource>());
+    }
+
+    [Rpc(sources: RpcSources.Proxies, targets: RpcTargets.StateAuthority)]
+    public void RPC_RequestMove(Vector3 movePoint)
+    {
+        Debug.Log("RPC_RequestMove");
+        MovePosition(movePoint);
     }
 
 }

@@ -24,11 +24,6 @@ public class MoveToCollectState : ICharacterState
 
         owner.SetMovability(true);
 
-        if (CheckDistance())
-        {
-            owner.CharacterStateController.ChangeState(CharacterState.Collect);
-        }
-
         owner.OnWoodSourceChanged.AddListener(GoPosition);
         GoPosition();
     }

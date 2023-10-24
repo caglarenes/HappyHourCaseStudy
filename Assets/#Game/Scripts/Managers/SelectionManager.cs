@@ -68,6 +68,12 @@ public class SelectionManager : ScopedSingleton<SelectionManager>
 
         selectedCharacter = hitInfo.collider.gameObject.GetComponentInParent<Character>();
 
+        if (selectedCharacter.CharacterTeam != GameManager.Instance.PlayerTeam)
+        {
+            selectedCharacter = null;
+            return false;
+        }
+
         return true;
     }
 }
