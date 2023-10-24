@@ -38,6 +38,7 @@ public class MainMenuUIManager : ScopedSingleton<MainMenuUIManager>
     public void CancelSearch()
     {
         MainMenuStateController.Instance.ChangeUIState(new SearchUIState());
+        PhotonManager.Instance.CloseConnection();
     }
 
 }

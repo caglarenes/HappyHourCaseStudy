@@ -7,6 +7,6 @@ public class SearchingView : IView
 {
     public void CancelButton()
     {
-
+        MainMenuUIManager.Instance.CancelSearch();
     }
 }

@@ -36,7 +36,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
 
         DontDestroyOnLoad(gameObject);
@@ -156,7 +156,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void CloseConnection()
     {
-        _runner.Shutdown();
+        _runner.Shutdown(false, ShutdownReason.Ok, true);
     }
 
     public IEnumerator SetupGame(NetworkRunner runner, PlayerRef player)
