@@ -19,6 +19,7 @@ public class InGameUIManager : ScopedSingleton<InGameUIManager>
     public void Setup()
     {
         InfoView.Setup();
+        Debug.Log("Setup UI");
         GameManager.Instance.OnEndGame.AddListener(ShowEndGameScreen);
     }
 
@@ -27,7 +28,7 @@ public class InGameUIManager : ScopedSingleton<InGameUIManager>
         GameStateController.Instance.ChangeState(GameState.End);
     }
 
-    public void ReturnMainMenu() 
+    public void ReturnMainMenu()
     {
         SceneManager.LoadScene(0);
     }

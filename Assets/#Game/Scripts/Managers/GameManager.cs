@@ -14,11 +14,13 @@ public class GameManager : NetworkBehaviour
 
     [Networked(OnChanged = nameof(OnPhotonPlayer1ScoreChanged))]
     public int Player1Score { get; set; }
+    [HideInInspector]
     public UnityEvent OnPlayer1ScoreChanged;
 
 
     [Networked(OnChanged = nameof(OnPhotonPlayer2ScoreChanged))]
     public int Player2Score { get; set; }
+    [HideInInspector]
     public UnityEvent OnPlayer2ScoreChanged;
 
     public Team PlayerTeam;
@@ -111,7 +113,12 @@ public class GameManager : NetworkBehaviour
     public void EndGame(Team winnerTeam)
     {
         WinnerTeam = winnerTeam;
-        OnEndGame.Invoke();     
+        OnEndGame.Invoke();
+
+        if (Runner.IsServer)
+        {
+            RPC_EndGame(winnerTeam);
+        }
     }
 
     public void StopAllCharacters()
@@ -142,6 +149,14 @@ public class GameManager : NetworkBehaviour
     {
         changed.Behaviour.OnPlayer2ScoreChanged.Invoke();
         changed.Behaviour.CheckEndGame();
+    }
+
+    [Rpc(sources: RpcSources.StateAuthority, targets: RpcTargets.Proxies)]
+    public void RPC_EndGame(Team winnerTeam)
+    {
+        Debug.Log("RPC_END_GAME");
+        EndGame(winnerTeam);
+        GameStateController.Instance.ChangeUIState(new EndGameUIState(WinnerTeam));
     }
 
     #endregion
