@@ -33,7 +33,7 @@ public class MapManager : ScopedSingleton<MapManager>
 
     public Vector3 GetRandomPoint()
     {
-        return new Vector3(Random.Range(-20, 20), 1.02f, Random.Range(-20, 20));
+        return new Vector3(Random.Range(-30, 30), 1.02f, Random.Range(-30, 30));
     }
 
     public Vector3 GetRandomMapFaceRotation()

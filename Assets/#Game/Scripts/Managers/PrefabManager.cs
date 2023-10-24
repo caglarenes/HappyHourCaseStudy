@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PrefabManager : ScopedSingleton<PrefabManager>
 {
-    public GameObject MinionPrefab;
+    public GameObject CharacterPrefab;
     public GameObject WoodSourcePrefab;
 }
