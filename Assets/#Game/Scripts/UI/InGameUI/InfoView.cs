@@ -8,6 +8,11 @@ public class InfoView : MonoBehaviour
     public TMP_Text Player1ScoreText;
     public TMP_Text Player2ScoreText;
 
+    [SerializeField]
+    private GameObject Player1Info;
+    [SerializeField]
+    private GameObject Player2Info;
+
     GameManager gameManager;
 
     public void Setup()
@@ -16,6 +21,20 @@ public class InfoView : MonoBehaviour
 
         gameManager.OnPlayer1ScoreChanged.AddListener(UpdateText);
         gameManager.OnPlayer2ScoreChanged.AddListener(UpdateText);
+
+        SetupPlayerTeeamInfo();
+    }
+
+    private void SetupPlayerTeeamInfo()
+    {
+        if (GameManager.Instance.PlayerTeam == Team.TeamA)
+        {
+            Player1Info.SetActive(true);
+        }
+        else
+        {
+            Player2Info.SetActive(true);
+        }
     }
 
     void UpdateText()

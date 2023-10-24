@@ -44,8 +44,6 @@ public class GameManager : NetworkBehaviour
         {
             Debug.LogError("Game Manager already exist.");
         }
-
-        FindObjectOfType<InGameUIManager>().Setup();
     }
 
     public override void Spawned()
@@ -56,6 +54,8 @@ public class GameManager : NetworkBehaviour
         }
 
         SetupTeam();
+
+        InGameUIManager.Instance.Setup();
     }
 
 
