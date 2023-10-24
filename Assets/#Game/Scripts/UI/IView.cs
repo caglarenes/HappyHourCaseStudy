@@ -1,4 +1,9 @@
-public interface IView 
+using UnityEngine;
+
+public abstract class IView : MonoBehaviour
 {
-    public void ChangeVisibility(bool isOpen);
+    public virtual void ChangeVisibility(bool isOpen) 
+    {
+        gameObject.SetActive(isOpen);
+    }
 }

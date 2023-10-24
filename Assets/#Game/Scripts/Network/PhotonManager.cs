@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
@@ -19,8 +20,22 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField]
     GameObject gameManagerPrefab;
 
+    [HideInInspector]
+    public UnityEvent OnPlayersReady = new();
+
+    public static PhotonManager Instance { get; private set; }
+
     public void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Photon Manager already exist.");
+        }
+
         DontDestroyOnLoad(gameObject);
     }
 
@@ -71,6 +86,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
         if (runner.ActivePlayers.Count() == 2)
         {
             StartCoroutine(SetupGame(runner, player));
+            OnPlayersReady.Invoke();
         }
     }
 
@@ -146,7 +162,7 @@ public class PhotonManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (runner.IsServer)
         {
-           runner.Spawn(gameManagerPrefab);
+            runner.Spawn(gameManagerPrefab);
         }
 
         //SceneManager.LoadScene("GameScene");

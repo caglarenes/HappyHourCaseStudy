@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8381805411478522487}
+  - component: {fileID: 3099527048551627700}
   - component: {fileID: 8381805411478522486}
   m_Layer: 0
   m_Name: GameManager
@@ -32,6 +33,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3099527048551627700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8381805411478522484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectInterest: 1
+  DefaultInterestGroups: []
+  DestroyWhenStateAuthorityLeaves: 0
+  AllowStateAuthorityOverride: 1
+  AoiPositionSource: {fileID: 0}
+  Flags: 2305
+  NetworkGuid:
+    RawGuidValue: 5586c15a823b6bc45a07246ab83ce7a3
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 8381805411478522486}
+  SimulationBehaviours: []
 --- !u!114 &8381805411478522486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44,15 +69,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebbb792b6d342e4e97fc4a1b85514ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinionPrefab: {fileID: 7964935753408257286, guid: f138aa981e7583546b5b9c4989ef2e07, type: 3}
-  WoodSourcePrefab: {fileID: 1473521476265806366, guid: 845401c31730052429e3f7779e137643, type: 3}
-  WoodPlacementPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _interpolationDataSource: 0
+  _Player1Score: 0
+  OnPlayer1ScoreChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _Player2Score: 0
+  OnPlayer2ScoreChanged:
+    m_PersistentCalls:
+      m_Calls: []

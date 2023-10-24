@@ -15,12 +15,45 @@ public class GameManager : NetworkBehaviour
     public int Player2Score { get; set; }
     public UnityEvent OnPlayer2ScoreChanged;
 
+    public List<WoodSource> WoodSources = new();
+
+    public static GameManager Instance { get; private set; }
+
+    public void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogError("Game Manager already exist.");
+        }
+    }
+
     public override void Spawned()
     {
         if (Runner.IsServer)
         {
             SetupGame();
         }
+    }
+
+    public void CheckEndGame()
+    {
+        if(Player1Score >= 50)
+        {
+            EndGame(true);
+        }
+        else if (Player2Score >= 50) 
+        {
+            EndGame(false);
+        }
+    }
+
+    public void EndGame(bool isPlayer1)
+    {
+
     }
 
     public void SetupGame()
@@ -31,11 +64,13 @@ public class GameManager : NetworkBehaviour
     public static void OnPhotonPlayer1ScoreChanged(Changed<GameManager> changed)
     {
         changed.Behaviour.OnPlayer1ScoreChanged.Invoke();
+        changed.Behaviour.CheckEndGame();
     }
 
     public static void OnPhotonPlayer2ScoreChanged(Changed<GameManager> changed)
     {
         changed.Behaviour.OnPlayer2ScoreChanged.Invoke();
+        changed.Behaviour.CheckEndGame();
     }
 
 }

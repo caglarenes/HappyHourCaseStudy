@@ -17,23 +17,34 @@ public class PreparationState : IGameState
 
     public void OnEnter()
     {
-        if(NetworkRunner.IsServer)
+        PhotonManager.Instance.OnPlayersReady.AddListener(PlayersReady);
+
+        if (NetworkRunner.IsServer)
         {
             PreparationCoroutine = CoroutineHolder.Instance.StartCoroutine(SetupCharacters());
         }
+
+        GameStateController.Instance.ChangeUIState(new WaitingUIState());
     }
 
     public void OnExit()
     {
-        if(PreparationCoroutine != null)
+        if (PreparationCoroutine != null)
         {
             CoroutineHolder.Instance.StopCoroutine(SetupCharacters());
         }
+
+        GameStateController.Instance.ChangeUIState(new SelectCharacterUIState());
     }
 
     public void UpdateState()
     {
 
+    }
+
+    public void PlayersReady()
+    {
+        GameStateController.Instance.ChangeState(GameState.CreateWood);
     }
 
     public IEnumerator SetupCharacters()

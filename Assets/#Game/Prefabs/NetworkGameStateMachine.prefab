@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8982270361783386469}
   - component: {fileID: 8982270361783386394}
   - component: {fileID: 8982270361783386468}
-  - component: {fileID: 8982270361783386395}
   - component: {fileID: -4197841736376206911}
+  - component: {fileID: 8982270361783386395}
   m_Layer: 0
   m_Name: NetworkGameStateMachine
   m_TagString: Untagged
@@ -73,19 +73,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
---- !u!114 &8982270361783386395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8982270361783386470}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63be9423299b0264dbe9b10b5d7208d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _interpolationDataSource: 0
 --- !u!114 &-4197841736376206911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +88,16 @@ MonoBehaviour:
   NetworkStateMachine: {fileID: 8982270361783386395}
   ActiveState: 
   ActiveUIState: 
+--- !u!114 &8982270361783386395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8982270361783386470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63be9423299b0264dbe9b10b5d7208d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interpolationDataSource: 0

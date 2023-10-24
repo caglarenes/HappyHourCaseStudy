@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7964935752869752212}
   - component: {fileID: 7964935752869752219}
   - component: {fileID: 7964935752869752218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,8 +111,11 @@ GameObject:
   - component: {fileID: 7964935753408257280}
   - component: {fileID: 7964935753408257287}
   - component: {fileID: 7964935753408257283}
+  - component: {fileID: 5729098776407239640}
   - component: {fileID: 6486637794695102395}
-  m_Layer: 0
+  - component: {fileID: 2738693944278993978}
+  - component: {fileID: 7750455912695794484}
+  m_Layer: 7
   m_Name: Minion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,6 +178,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  Chacter: {fileID: 7964935753408257283}
+  StateMachine: {fileID: 7964935753408257287}
+  StateController: {fileID: 5729098776407239640}
 --- !u!114 &7964935753408257287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +208,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
   _CharacterTeam: 0
+  CharacterNetworkStateMachine: {fileID: 7964935753408257287}
+  CharacterStateMachine: {fileID: 7964935753408257280}
+  CharacterStateController: {fileID: 5729098776407239640}
+  Seeker: {fileID: 2738693944278993978}
+  AIPath: {fileID: 7750455912695794484}
   CharacterMeshRenderer: {fileID: 7964935752869752219}
+  MovePoint: {x: 0, y: 0, z: 0}
+--- !u!114 &5729098776407239640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964935753408257286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35b9a6594b0146a4d80d62688cccc6fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkStateMachine: {fileID: 7964935753408257280}
+  ActiveState: 
 --- !u!114 &6486637794695102395
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,3 +257,73 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
   TargetInterpolationDelay: 0.03
+--- !u!114 &2738693944278993978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964935753408257286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 373b52eb9bf8c40f785bb6947a1aee66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  drawGizmos: 1
+  detailedGizmos: 0
+  startEndModifier:
+    addPoints: 0
+    exactStartPoint: 3
+    exactEndPoint: 3
+    useRaycasting: 0
+    mask:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    useGraphRaycasting: 0
+  traversableTags: -1
+  tagPenalties: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  graphMask:
+    value: -1
+--- !u!114 &7750455912695794484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7964935753408257286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6eb1402c17e84a9282a7f0f62eb584f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
+  radius: 0.5
+  height: 2
+  canMove: 1
+  maxSpeed: 7
+  gravity: {x: 0, y: 0, z: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  centerOffsetCompatibility: NaN
+  repathRateCompatibility: NaN
+  canSearchCompability: 0
+  orientation: 0
+  enableRotation: 1
+  autoRepath:
+    mode: 2
+    period: 0.5
+    sensitivity: 10
+    maximumPeriod: 2
+    visualizeSensitivity: 0
+  targetCompatibility: {fileID: 0}
+  maxAcceleration: -2.5
+  rotationSpeed: 360
+  slowdownDistance: 0.6
+  pickNextWaypointDist: 2
+  endReachedDistance: 0.2
+  alwaysDrawGizmos: 0
+  slowWhenNotFacingTarget: 1
+  whenCloseToDestination: 0
+  constrainInsideGraph: 0

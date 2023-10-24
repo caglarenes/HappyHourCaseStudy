@@ -2,6 +2,7 @@ public enum CharacterState : byte
 {
     Idle,
     Walk,
+    MoveToCollect,
     Collect
 }
 

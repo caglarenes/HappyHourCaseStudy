@@ -14,12 +14,8 @@ public class WoodSource : NetworkBehaviour
 
     public TMP_Text SourceText;
 
-    public void Update()
-    {
-        
-    }
 
-    public void Spawned()
+    public override void Spawned()
     {
         UpdateUIText();
     }
@@ -39,7 +35,7 @@ public class WoodSource : NetworkBehaviour
         SourceCount -= (ushort)collectAmount;
         UpdateUIText();
 
-        if(SourceCount <= 0)
+        if (SourceCount <= 0)
         {
             DeleteWoodSource();
         }
@@ -47,12 +43,14 @@ public class WoodSource : NetworkBehaviour
 
     public void DeleteWoodSource()
     {
-        if(!Runner.IsServer)
+        if (!Runner.IsServer)
         {
             return;
         }
 
+        GameManager.Instance.WoodSources.Remove(this);
         WoodPlacementPoint.HaveWoodSource = false;
+
         Runner.Despawn(Object);
     }
 

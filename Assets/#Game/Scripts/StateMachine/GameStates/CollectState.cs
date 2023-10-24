@@ -15,16 +15,22 @@ public class CollectState : IGameState
 
     public void OnEnter()
     {
-        
+
     }
 
     public void OnExit()
     {
-        
+
     }
 
     public void UpdateState()
     {
-        
+        if (NetworkRunner.IsServer)
+        {
+            if (GameManager.Instance.WoodSources.Count == 0)
+            {
+                GameStateController.Instance.ChangeState(GameState.CreateWood);
+            }
+        }
     }
 }
