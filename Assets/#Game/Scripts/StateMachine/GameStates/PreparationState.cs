@@ -53,7 +53,7 @@ public class PreparationState : IGameState
     {
         // Setup Player A minions
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
         {
             var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();
@@ -63,7 +63,7 @@ public class PreparationState : IGameState
 
         // Setup Player B minions
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < GameManager.Instance.Settings.CharacterCountPerPlayer; i++)
         {
             var tempMinion = NetworkRunner.Spawn(PrefabManager.Instance.MinionPrefab);
             var characterScript = tempMinion.GetComponent<Character>();

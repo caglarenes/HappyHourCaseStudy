@@ -6,8 +6,10 @@ using UnityEngine.Events;
 
 public class GameManager : NetworkBehaviour
 {
-    public List<Character> player1Characters = new(3);
-    public List<Character> player2Characters = new(3);
+    public Settings Settings;
+
+    public List<Character> player1Characters = new(Settings.MaxCharacterCountPerPlayer);
+    public List<Character> player2Characters = new(Settings.MaxCharacterCountPerPlayer);
 
 
     [Networked(OnChanged = nameof(OnPhotonPlayer1ScoreChanged))]
@@ -27,6 +29,8 @@ public class GameManager : NetworkBehaviour
     public List<WoodSource> WoodSources = new();
 
     public static GameManager Instance { get; private set; }
+
+    #region Setups
 
     public void Awake()
     {
@@ -52,13 +56,35 @@ public class GameManager : NetworkBehaviour
         SetupTeam();
     }
 
+
+    public void SetupGame()
+    {
+        GameStateController.Instance.ChangeState(GameState.Preparation);
+    }
+
+    private void SetupTeam()
+    {
+        if (Runner.IsServer)
+        {
+            PlayerTeam = Team.TeamA;
+        }
+        else
+        {
+            PlayerTeam = Team.TeamB;
+        }
+    }
+
+    #endregion
+
+    #region Game Orders
+
     public void CheckEndGame()
     {
-        if (Player1Score >= 350)
+        if (Player1Score >= Settings.EndGameScore)
         {
             EndGame(Team.TeamA);
         }
-        else if (Player2Score >= 350)
+        else if (Player2Score >= Settings.EndGameScore)
         {
             EndGame(Team.TeamB);
         }
@@ -101,22 +127,10 @@ public class GameManager : NetworkBehaviour
         }
     }
 
-    public void SetupGame()
-    {
-        GameStateController.Instance.ChangeState(GameState.Preparation);
-    }
+    #endregion
 
-    private void SetupTeam()
-    {
-        if (Runner.IsServer)
-        {
-            PlayerTeam = Team.TeamA;
-        }
-        else
-        {
-            PlayerTeam = Team.TeamB;
-        }
-    }
+
+    #region Photon Events
 
     public static void OnPhotonPlayer1ScoreChanged(Changed<GameManager> changed)
     {
@@ -130,4 +144,5 @@ public class GameManager : NetworkBehaviour
         changed.Behaviour.CheckEndGame();
     }
 
+    #endregion
 }

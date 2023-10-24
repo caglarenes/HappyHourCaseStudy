@@ -27,7 +27,7 @@ public class CollectState : IGameState
     {
         if (NetworkRunner.IsServer)
         {
-            if (GameManager.Instance.WoodSources.Count == 0)
+            if (GameManager.Instance.WoodSources.Count <= 2)
             {
                 GameStateController.Instance.ChangeState(GameState.CreateWood);
             }

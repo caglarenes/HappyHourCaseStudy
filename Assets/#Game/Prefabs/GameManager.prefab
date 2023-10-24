@@ -70,6 +70,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interpolationDataSource: 0
+  Settings: {fileID: 11400000, guid: 3143f3d1c03516642b7362c4d42cbf86, type: 2}
+  player1Characters: []
+  player2Characters: []
   _Player1Score: 0
   OnPlayer1ScoreChanged:
     m_PersistentCalls:
@@ -78,3 +81,9 @@ MonoBehaviour:
   OnPlayer2ScoreChanged:
     m_PersistentCalls:
       m_Calls: []
+  PlayerTeam: 0
+  WinnerTeam: 0
+  OnEndGame:
+    m_PersistentCalls:
+      m_Calls: []
+  WoodSources: []

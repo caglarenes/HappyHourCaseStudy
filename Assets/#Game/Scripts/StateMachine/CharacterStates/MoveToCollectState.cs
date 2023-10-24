@@ -68,7 +68,7 @@ public class MoveToCollectState : ICharacterState
             owner.CharacterStateController.ChangeState(CharacterState.Idle);
         }
 
-        if (Vector3.Distance(owner.WoodSource.transform.position, owner.transform.position) < 4.5f)
+        if (Vector3.Distance(owner.WoodSource.transform.position, owner.transform.position) < GameManager.Instance.Settings.WoodReachDestination)
         {
             return true;
         }
